@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './style.css';
-import logo from './static/logo.png';
+import { useState } from 'react';
 
 export default function App() {
   return (
@@ -16,18 +16,58 @@ function Header() {
   return (
     <header>
       <a href="/">
-        <img src={logo} alt="Pokemon Logo" />
+        <h1>Pokemon</h1>
       </a>
     </header>
   );
 }
 
-function Container() {}
+function Container() {
+  return (
+    <div>
+      <Menu />
+      <List />
+    </div>
+  );
+}
 
-function Menu() {}
+function Menu() {
+  const [currentGen, setCurrentGen] = useState('All');
+  const generations = ['All', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+  return (
+    <div id="menu">
+      <input type="text" id="search" name="search" />
+      <button>{currentGen}</button>
+      <ul id="generation-menu">
+        {generations.map((generation) => (
+          <li onClick={() => setCurrentGen(generation)}>{generation}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-function List() {}
+function List() {
+  return (
+    <div id="list">
+      <Item name="test" />
+      <Item name="another" />
+    </div>
+  );
+}
 
-function Item() {}
+function Item({ name }) {
+  return (
+    <div>
+      <h2>{name}</h2>
+    </div>
+  );
+}
 
-function Footer() {}
+function Footer() {
+  return (
+    <footer>
+      <span>© Pokemon, {new Date().getFullYear()}</span>
+    </footer>
+  );
+}
