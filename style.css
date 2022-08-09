@@ -26,7 +26,22 @@ header a {
 }
 
 header a h1 {
-  margin: -1rem 0;
+  margin: -1rem 0 1rem;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+}
+
+header nav a {
+  color: var(--primary);
+  margin: 0 0.2rem;
+  cursor: pointer;
+}
+
+header nav a.active {
+  text-decoration: underline;
 }
 
 .menu {
@@ -53,6 +68,12 @@ header a h1 {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .spacer {

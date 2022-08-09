@@ -1,8 +1,9 @@
 import * as React from 'react';
 import './style.css';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { Star, BarChart } from 'react-feather';
+import { Chart } from 'react-charts';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -20,26 +21,46 @@ function fetchPokemonById(id) {
 }
 
 export default function App() {
+  const [comparisons, setComparisons] = useState([]);
+  const [view, setView] = useState('list');
+
   if (!localStorage.getItem('favourites'))
     localStorage.setItem('favourites', []);
 
   return (
     <div id="app-container">
-      <Header />
-      <Container />
+      <Header view={view} setView={setView} />
+      {view === 'list' && <Container setComparisons={setComparisons} />}
+      {view === 'compare' && (
+        <Compare comparisons={comparisons} setComparisons={setComparisons} />
+      )}
       <Spacer />
       <Footer />
     </div>
   );
 }
 
-function Header() {
+function Header({ view, setView }) {
   return (
     <header>
       <a href="/">
         <Pokeball />
         <h1>Pokémon</h1>
       </a>
+      <nav>
+        <a
+          onClick={() => setView('list')}
+          className={view === 'list' && 'active'}
+        >
+          All Pokemon
+        </a>
+        <a
+          onClick={() => setView('compare')}
+          className={view === 'compare' && 'active'}
+        >
+          Compare
+        </a>
+      </nav>
     </header>
   );
 }
@@ -119,6 +140,7 @@ function Item({ id }) {
   if (pokemon) {
     const formattedName =
       pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+
     return (
       <div className="item">
         {id && (
@@ -126,7 +148,7 @@ function Item({ id }) {
             {flipped ? (
               <Details
                 name={formattedName}
-                xp={pokemon.xp}
+                xp={pokemon.base_experience}
                 height={pokemon.height}
                 weight={pokemon.weight}
                 types={pokemon.types}
@@ -177,7 +199,7 @@ function addToFavourites(id) {
   }
 }
 
-function Overview({ id, sprite, name, flipped, setFlipped }) {
+function Overview({ id, sprite, name, flipped, setFlipped, setComparisons }) {
   const [isFavourite, setIsFavourite] = useState(checkIfFavourite(id));
 
   return (
@@ -227,8 +249,56 @@ function Details({ name, xp, height, weight, types, generation, setFlipped }) {
     </div>
   );
 }
+
 function Spacer() {
   return <div className="spacer" />;
+}
+
+function Compare({ comparisons }) {
+  return (
+    <div className="container">
+      <h1>Compare Pokemon</h1>
+      {/* {comparisons < 1 ? (
+        <p>
+          You haven't added any Pokemon yet, click the bar graph on a Pokemon's
+          card to add them to the comparison
+        </p>
+      ) : ( */}
+      <Chart />
+      {/* )} */}
+    </div>
+  );
+}
+
+function ComparisonChart() {
+  const data = [
+    {
+      label: 'poke1',
+      data: [{ name: 'poke1', height: 7, weight: 69, xp: 64 }],
+    },
+    {
+      label: 'poke2',
+      data: [{ name: 'poke2', height: 5, weight: 129, xp: 84 }],
+    },
+  ];
+
+  const primaryAxis = useMemo(
+    () => ({
+      getValue: (datum) => datum.name,
+    }),
+    []
+  );
+
+  const secondaryAxes = useMemo(
+    () => [
+      { getValue: (datum) => datum.height },
+      { getValue: (datum) => datum.weight },
+      { getValue: (datum) => datum.xp },
+    ],
+    []
+  );
+
+  return <Chart options={{ data, primaryAxis, secondaryAxes }} />;
 }
 
 function Footer() {
