@@ -90,7 +90,7 @@ function Loader() {
 function List() {
   return (
     <div id="list">
-      <Item name="test" />
+      <Item id="1" name="test" height="5" weight="5" />
       <Item name="another" />
       <Item name="mess" />
       <Item name="test" />
@@ -100,11 +100,20 @@ function List() {
   );
 }
 
-function Item({ name }) {
+function Item({ id, sprite, name, height, weight }) {
   return (
     <div className="item">
-      <img src="" />
+      <span className="corner-ribbon">{id}</span>
+      <img src={sprite} alt={`${name}'s sprite`} />
       <h2>{name}</h2>
+      <span>
+        <b>Height: </b>
+        {height}
+      </span>
+      <span>
+        <b>Weight: </b>
+        {weight}
+      </span>
     </div>
   );
 }
