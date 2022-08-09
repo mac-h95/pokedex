@@ -104,8 +104,11 @@ header a h1 {
   justify-content: flex-start;
 }
 
-.actions span {
-  margin: 0 0.2rem;
+.actions {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .details .type-list {

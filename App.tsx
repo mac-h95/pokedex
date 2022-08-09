@@ -22,6 +22,7 @@ function fetchPokemonById(id) {
 export default function App() {
   if (!localStorage.getItem('favourites'))
     localStorage.setItem('favourites', []);
+
   return (
     <div id="app-container">
       <Header />
@@ -157,11 +158,7 @@ function Item({ id }) {
 }
 
 function checkIfFavourite(id) {
-  const favourites = localStorage.getItem('favourites');
-  if (favourites) {
-    const isFavourite = favourites.indexOf(id);
-    return isFavourite;
-  } else return false;
+  return localStorage.getItem('favourites').includes(id);
 }
 
 function addToFavourites(id) {
@@ -181,6 +178,8 @@ function addToFavourites(id) {
 }
 
 function Overview({ id, sprite, name, flipped, setFlipped }) {
+  const [isFavourite, setIsFavourite] = useState(checkIfFavourite(id));
+
   return (
     <div>
       <span className="corner-ribbon">{id}</span>
@@ -189,8 +188,10 @@ function Overview({ id, sprite, name, flipped, setFlipped }) {
         <h2>{name}</h2>
       </div>
       <div className="actions">
-        <span onClick={() => addToFavourites(id)}>
-          <Star />
+        <span
+          onClick={() => (addToFavourites(id), setIsFavourite(!isFavourite))}
+        >
+          <Star fill={isFavourite ? 'yellow' : 'transparent'} />
         </span>
         <span>
           <BarChart />
