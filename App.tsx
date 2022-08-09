@@ -2,6 +2,7 @@ import * as React from 'react';
 import './style.css';
 import { useState } from 'react';
 import useSWR from 'swr';
+import { Star, BarChart } from 'react-feather';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -19,6 +20,8 @@ function fetchPokemonById(id) {
 }
 
 export default function App() {
+  if (!localStorage.getItem('favourites'))
+    localStorage.setItem('favourites', []);
   return (
     <div id="app-container">
       <Header />
@@ -67,7 +70,7 @@ function Pokeball() {
 }
 
 function Container() {
-  const [id, setId] = useState({ startId: 1, endId: 15 });
+  const [id, setId] = useState({ startId: 1, endId: 151 });
   const pokeId = () => {
     let pokemon = [];
     for (let i = id.startId; i <= id.endId; i++) {
@@ -116,7 +119,7 @@ function Item({ id }) {
     const formattedName =
       pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     return (
-      <div className="item" onClick={() => setFlipped(!flipped)}>
+      <div className="item">
         {id && (
           <div>
             {flipped ? (
@@ -127,12 +130,14 @@ function Item({ id }) {
                 weight={pokemon.weight}
                 types={pokemon.types}
                 generation={pokemon.generation}
+                setFlipped={setFlipped}
               />
             ) : (
               <Overview
                 id={id}
                 sprite={pokemon.sprites.front_default}
                 name={formattedName}
+                setFlipped={setFlipped}
               />
             )}
           </div>
@@ -151,21 +156,53 @@ function Item({ id }) {
   }
 }
 
-function Overview({ id, sprite, name }) {
+function checkIfFavourite(id) {
+  const favourites = localStorage.getItem('favourites');
+  if (favourites) {
+    const isFavourite = favourites.indexOf(id);
+    return isFavourite;
+  } else return false;
+}
+
+function addToFavourites(id) {
+  let newArr = [];
+
+  const oldArr = localStorage.getItem('favourites');
+
+  if (oldArr.includes(id)) {
+    newArr.push(oldArr);
+    newArr.splice(newArr.indexOf(id));
+    localStorage.setItem('favourites', newArr);
+  } else {
+    newArr.push(id);
+    newArr.push(oldArr);
+    localStorage.setItem('favourites', newArr);
+  }
+}
+
+function Overview({ id, sprite, name, flipped, setFlipped }) {
   return (
     <div>
       <span className="corner-ribbon">{id}</span>
-      <div className="details">
+      <div className="details" onClick={() => setFlipped(true)}>
         <img src={sprite} alt={`${name}'s sprite`} />
         <h2>{name}</h2>
+      </div>
+      <div className="actions">
+        <span onClick={() => addToFavourites(id)}>
+          <Star />
+        </span>
+        <span>
+          <BarChart />
+        </span>
       </div>
     </div>
   );
 }
 
-function Details({ name, xp, height, weight, types, generation }) {
+function Details({ name, xp, height, weight, types, generation, setFlipped }) {
   return (
-    <div className="details">
+    <div className="details" onClick={() => setFlipped(false)}>
       <h2>{name}</h2>
       <span>
         <b>Base XP:</b> {xp}
@@ -181,7 +218,7 @@ function Details({ name, xp, height, weight, types, generation }) {
       </span>
       <div className="type-list">
         {types.map((type) => (
-          <span className={`type ${type}`}>
+          <span className={`type ${type.type.name}`}>
             {type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}
           </span>
         ))}
