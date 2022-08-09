@@ -256,16 +256,17 @@ function Spacer() {
 
 function Compare({ comparisons }) {
   return (
-    <div className="container">
-      <h1>Compare Pokemon</h1>
-      {/* {comparisons < 1 ? (
-        <p>
-          You haven't added any Pokemon yet, click the bar graph on a Pokemon's
-          card to add them to the comparison
-        </p>
-      ) : ( */}
-      <Chart />
-      {/* )} */}
+    <div id="compare-container">
+      <div className="container">
+        <h1>Compare Pokemon</h1>
+        {comparisons < 1 && (
+          <p>
+            You haven't added any Pokemon yet, click the bar graph on a
+            Pokemon's card to add them to the comparison
+          </p>
+        )}
+      </div>
+      {comparisons > 1 && <ComparisonChart />}
     </div>
   );
 }
@@ -273,27 +274,40 @@ function Compare({ comparisons }) {
 function ComparisonChart() {
   const data = [
     {
-      label: 'poke1',
-      data: [{ name: 'poke1', height: 7, weight: 69, xp: 64 }],
+      label: 'Base Experience',
+      data: [
+        { name: 'poke1', value: 142 },
+        { name: 'poke2', value: 120 },
+      ],
     },
     {
-      label: 'poke2',
-      data: [{ name: 'poke2', height: 5, weight: 129, xp: 84 }],
+      label: 'Height',
+      data: [
+        { name: 'poke1', value: 8 },
+        { name: 'poke2', value: 7 },
+      ],
+    },
+    {
+      label: 'Weight',
+      data: [
+        { name: 'poke1', value: 64 },
+        { name: 'poke2', value: 72 },
+      ],
     },
   ];
 
-  const primaryAxis = useMemo(
+  const primaryAxis = React.useMemo(
     () => ({
       getValue: (datum) => datum.name,
     }),
     []
   );
 
-  const secondaryAxes = useMemo(
+  const secondaryAxes = React.useMemo(
     () => [
-      { getValue: (datum) => datum.height },
-      { getValue: (datum) => datum.weight },
-      { getValue: (datum) => datum.xp },
+      {
+        getValue: (datum) => datum.value,
+      },
     ],
     []
   );
