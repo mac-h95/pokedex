@@ -88,36 +88,55 @@ function Loader() {
 }
 
 function List() {
+  const pokemon = { id: 1, name: 'test' };
   return (
     <div id="list">
-      <Item id="1" name="test" height="5" weight="5" />
-      <Item name="another" />
-      <Item name="mess" />
-      <Item name="test" />
-      <Item name="another" />
-      <Item name="mess" />
+      <Item pokemon={pokemon} />
     </div>
   );
 }
 
-function Item({ id, sprite, name, height, weight }) {
+function Item({ pokemon }) {
+  const [flipped, setFlipped] = useState(false);
   return (
-    <div className="item">
-      <span className="corner-ribbon">{id}</span>
+    <div className="item" onClick={() => setFlipped(!flipped)}>
+      <span className="corner-ribbon">{pokemon.id}</span>
+      {flipped ? <Details {...pokemon} /> : <Overview {...pokemon} />}
+    </div>
+  );
+}
+
+function Overview({ id, sprite, name, height, weight }) {
+  return (
+    <div className="details">
       <img src={sprite} alt={`${name}'s sprite`} />
       <h2>{name}</h2>
-      <span>
-        <b>Height: </b>
-        {height}
-      </span>
-      <span>
-        <b>Weight: </b>
-        {weight}
-      </span>
     </div>
   );
 }
 
+function Details({ name, xp, height, weight, type, generation }) {
+  return (
+    <div className="details">
+      <h2>{name}</h2>
+      <span>
+        <b>Base XP:</b> {xp}
+      </span>
+      <span>
+        <b>Height:</b> {height}
+      </span>
+      <span>
+        <b>Weight:</b> {weight}
+      </span>
+      <span>
+        <b>Types:</b> {type}
+      </span>
+      <span>
+        <b>Generation:</b> {generation}
+      </span>
+    </div>
+  );
+}
 function Spacer() {
   return <div className="spacer" />;
 }
