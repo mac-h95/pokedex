@@ -38,13 +38,13 @@ function Header() {
 
 function Container() {
   const { data, isLoading, isError } = fetchPokemon();
-  console.log(data);
+
   return (
     <main>
-      <Loader />
-      {/* {isError && (
+      {isLoading && <Loader />}
+      {isError && (
         <div id="error">
-          <h1>Oops...</h1>
+          <h1>Oops something went wrong...</h1>
           <p>Contact support if this error persists.</p>
         </div>
       )}
@@ -53,7 +53,7 @@ function Container() {
           <Menu />
           <List />
         </div>
-      )} */}
+      )}
     </main>
   );
 }
