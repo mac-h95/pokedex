@@ -103,6 +103,17 @@ header a h1 {
   transform: scale(1.05);
 }
 
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    hsl(210, 15%, 88%),
+    hsl(210, 15%, 95%),
+    hsl(210, 15%, 88%)
+  );
+  background-size: 200%;
+  animation: loader 1s infinite reverse;
+}
+
 .corner-ribbon {
   background: var(--primary);
   position: absolute;
@@ -125,4 +136,13 @@ header a h1 {
 .item h2 {
   margin: 0 0 0.3rem;
   padding: 0;
+}
+
+@keyframes loader {
+  from {
+    background-position: -100% 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
 }
