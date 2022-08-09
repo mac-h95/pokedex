@@ -5,6 +5,17 @@ import useSWR from 'swr';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
+interface Pokemon {
+  id: number;
+  sprite: string;
+  name: string;
+  xp: number;
+  height: number;
+  weight: number;
+  types: string[];
+  generation: string;
+}
+
 function fetchPokemon() {
   const { data, error } = useSWR('https://pokeapi.co/api/v2/pokemon', fetcher);
 
@@ -60,7 +71,17 @@ function Container() {
 
 function Menu() {
   const [currentGen, setCurrentGen] = useState('All');
-  const generations = ['All', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+  const generations: string[] = [
+    'All',
+    'I',
+    'II',
+    'III',
+    'IV',
+    'V',
+    'VI',
+    'VII',
+    'VIII',
+  ];
   return (
     <div id="menu">
       <input
@@ -88,25 +109,47 @@ function Loader() {
 }
 
 function List() {
-  const pokemon = { id: 1, name: 'test' };
+  const pokemon = [{ id: 1, name: 'test' }];
   return (
     <div id="list">
-      <Item pokemon={pokemon} />
+      {pokemon.map((mon) => (
+        <Item {...mon} />
+      ))}
     </div>
   );
 }
 
-function Item({ pokemon }) {
+function Item({
+  id,
+  sprite,
+  name,
+  xp,
+  height,
+  weight,
+  types,
+  generation,
+}: Pokemon) {
   const [flipped, setFlipped] = useState(false);
   return (
     <div className="item" onClick={() => setFlipped(!flipped)}>
-      <span className="corner-ribbon">{pokemon.id}</span>
-      {flipped ? <Details {...pokemon} /> : <Overview {...pokemon} />}
+      <span className="corner-ribbon">{id}</span>
+      {flipped ? (
+        <Details
+          name={name}
+          xp={xp}
+          height={height}
+          weight={weight}
+          types={types}
+          generation={generation}
+        />
+      ) : (
+        <Overview sprite={sprite} name={name} />
+      )}
     </div>
   );
 }
 
-function Overview({ id, sprite, name, height, weight }) {
+function Overview({ sprite, name }) {
   return (
     <div className="details">
       <img src={sprite} alt={`${name}'s sprite`} />
@@ -115,7 +158,7 @@ function Overview({ id, sprite, name, height, weight }) {
   );
 }
 
-function Details({ name, xp, height, weight, type, generation }) {
+function Details({ name, xp, height, weight, types, generation }) {
   return (
     <div className="details">
       <h2>{name}</h2>
@@ -129,7 +172,7 @@ function Details({ name, xp, height, weight, type, generation }) {
         <b>Weight:</b> {weight}
       </span>
       <span>
-        <b>Types:</b> {type}
+        <b>Types:</b> {types}
       </span>
       <span>
         <b>Generation:</b> {generation}
