@@ -7,44 +7,43 @@
   --shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
+html,
+body {
+  font-family: system-ui;
+}
+
 header {
   margin: 0 0 2rem;
 }
 
-#menu {
+header a {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+header a h1 {
+  margin: -1rem 0;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 2rem;
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
+.menu h2 {
+  margin: 0.4rem 0;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: var(--surface);
-  min-width: 60px;
-  box-shadow: var(--shadow);
-  border-radius: var(--rad);
-  z-index: 10;
-}
-
-.dropdown-content span {
-  color: black;
-  padding: 8px 12px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content span:hover {
-  background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
+.menu button {
+  cursor: pointer;
+  width: 30px;
+  margin: 0 0.1rem;
 }
 
 #app-container {
@@ -58,18 +57,6 @@ header {
 
 .spacer {
   flex-grow: 1;
-}
-
-.loader {
-  width: 48px;
-  height: 48px;
-  border: 5px solid #fff;
-  border-bottom-color: var(--primary);
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-  position: static;
 }
 
 #error {
@@ -132,20 +119,10 @@ header {
 .item .details img {
   width: 100%;
   min-height: 70px;
-  background: lightblue;
   border-radius: var(--rad) var(--rad) 0 0;
 }
 
 .item h2 {
   margin: 0 0 0.3rem;
   padding: 0;
-}
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
