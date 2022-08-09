@@ -63,15 +63,22 @@ function Menu() {
   const generations = ['All', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
   return (
     <div id="menu">
-      <input type="text" id="search" name="search" />
-      <button>{currentGen}</button>
-      <ul id="generation-menu">
-        {generations.map((generation) => (
-          <li key={generation} onClick={() => setCurrentGen(generation)}>
-            {generation}
-          </li>
-        ))}
-      </ul>
+      <input
+        type="text"
+        id="search"
+        name="search"
+        placeholder="Search by name..."
+      />
+      <div className="dropdown">
+        <button className="dropbtn">{currentGen}</button>
+        <div className="dropdown-content">
+          {generations.map((gen) => (
+            <span key={gen} onClick={() => setCurrentGen(gen)}>
+              {gen}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -85,13 +92,18 @@ function List() {
     <div id="list">
       <Item name="test" />
       <Item name="another" />
+      <Item name="mess" />
+      <Item name="test" />
+      <Item name="another" />
+      <Item name="mess" />
     </div>
   );
 }
 
 function Item({ name }) {
   return (
-    <div>
+    <div className="item">
+      <img src="" />
       <h2>{name}</h2>
     </div>
   );
