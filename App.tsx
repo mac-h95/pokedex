@@ -181,7 +181,7 @@ function Details({ name, xp, height, weight, types, generation }) {
       </span>
       <div className="type-list">
         {types.map((type) => (
-          <span className={`type ${type.type.name}`}>
+          <span className={`type ${type}`}>
             {type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}
           </span>
         ))}
