@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Star, BarChart } from 'react-feather';
-import React = require('react');
+import * as React from 'react';
 import { fetchPokemonById } from '../library/data';
+import { useData } from '../library/context';
 
 export default function Pokemon() {
   const [id, setId] = useState({ startId: 1, endId: 151 });
@@ -92,7 +93,6 @@ function Item({ id }) {
 }
 
 function Overview({ id, sprite, name, flipped, setFlipped, setComparisons }) {
-  const {checkIf}
   const [isFavourite, setIsFavourite] = useState(checkIfFavourite(id));
 
   return (

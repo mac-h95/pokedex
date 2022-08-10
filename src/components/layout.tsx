@@ -1,5 +1,7 @@
-import React = require('react');
+import * as React from 'react';
 import Pokemon from './pokemon';
+import Compare from './compare';
+import Favourites from './favourites';
 
 export default function Layout({ view, setView }) {
   return (

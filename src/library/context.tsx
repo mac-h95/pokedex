@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import * as React from 'react';
 
 export const AppContext = createContext();
 
@@ -30,8 +31,11 @@ export const ContextWrapper = ({ children }) => {
   };
 
   const checkIfFavourite = (id) => {
-    
-  }
+    const favs = JSON.parse(localStorage.getItem('favourites'));
+
+    if (favs.includes(id)) return true;
+    else return false;
+  };
 
   const updateFavourites = (pokemon) => {
     if (favourites.includes(pokemon.id)) removeFromFavourites(pokemon.id);
@@ -60,6 +64,7 @@ export const ContextWrapper = ({ children }) => {
       value={{
         favourites,
         comparisons,
+        checkIfFavourite,
         updateFavourites,
         updateComparisons,
       }}
@@ -69,4 +74,4 @@ export const ContextWrapper = ({ children }) => {
   );
 };
 
-export const useData = () => useContext(ContextWrapper);
+export const useData = () => useContext(AppContext);
