@@ -34,6 +34,7 @@ export default function App() {
       {view === 'compare' && (
         <Compare comparisons={comparisons} setComparisons={setComparisons} />
       )}
+      {view === 'favourites' && <Favourites />}
       <Spacer />
       <Footer />
     </div>
@@ -59,6 +60,12 @@ function Header({ view, setView }) {
           className={view === 'compare' && 'active'}
         >
           Compare
+        </a>
+        <a
+          onClick={() => setView('favourites')}
+          className={view === 'favourites' && 'active'}
+        >
+          Favourites
         </a>
       </nav>
     </header>
@@ -313,6 +320,22 @@ function ComparisonChart() {
   );
 
   return <Chart options={{ data, primaryAxis, secondaryAxes }} />;
+}
+
+function Favourites() {
+  const favourites = [];
+  return (
+    <div className="container">
+      <h1>Favourites</h1>
+      {favourites.length < 1 && (
+        <p>
+          Currently you have no favourites selected. Click on the start on a
+          Pokemons card to favourite it.
+        </p>
+      )}
+      {favourites.length > 1 && <div className="list"></div>}
+    </div>
+  );
 }
 
 function Footer() {
