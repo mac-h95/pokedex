@@ -75,6 +75,7 @@ header nav a.active {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 75vw;
   height: 100%;
   text-align: center;
 }
