@@ -22,7 +22,7 @@ function Header({ view, setView }) {
     <header>
       <a href="/">
         <Pokeball />
-        <h1>Pokémon</h1>
+        <h1>Pokédex</h1>
       </a>
       <nav>
         <a
