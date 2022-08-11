@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import React from 'react';
+import * as React from 'react';
 
 export const AppContext = createContext({});
 
@@ -8,15 +8,16 @@ export default function ContextWrapper({
 }: {
   children: JSX.Element;
 }) {
-  const [favourites, setFavourites] = useState<object[] | null>([]);
-  const [comparisons, setComparisons] = useState<object[] | null>([]);
+  const [favourites, setFavourites] = useState<number[]>([]);
+  const [comparisons, setComparisons] = useState<number[]>([]);
 
   useEffect(() => {
     const favouritesData = JSON.parse(localStorage.getItem('favourites') || '');
     const comparisonsData = JSON.parse(
-      sessionStorage.getItem('comparisons') || ''
+      localStorage.getItem('comparisons') || ''
     );
-
+    console.log(favourites);
+    console.log(comparisons);
     if (favouritesData) {
       setFavourites(favouritesData);
     } else {
@@ -25,38 +26,38 @@ export default function ContextWrapper({
     if (comparisonsData) {
       setComparisons(comparisonsData);
     } else {
-      sessionStorage.setItem('comparisons', JSON.stringify(comparisons));
+      localStorage.setItem('comparisons', JSON.stringify(comparisons));
     }
   }, []);
 
   const addToStorage = async (id: number, location: string) => {
     if (location === 'favourites') {
-      const newFavs = [...[favourites], id];
+      const newFavs = [...favourites, id];
       localStorage.setItem('favourites', JSON.stringify(newFavs));
       setFavourites(newFavs);
     } else if (location === 'comparisons') {
       if (comparisons.length === 3) throw new Error('Maximum of 3 Comparisons');
       else {
         const newComps = [...comparisons, id];
-        sessionStorage.setItem('comparisons', JSON.stringify(newComps));
+        localStorage.setItem('comparisons', JSON.stringify(newComps));
         setComparisons(newComps);
       }
     }
   };
 
-  const removeFromStorage = (id, location) => {
+  const removeFromStorage = (id: number, location: string) => {
     if (location === 'favourites') {
       const newFavs = favourites.filter((pokemon) => pokemon !== id);
       localStorage.setItem('favourites', JSON.stringify(newFavs));
       setFavourites(newFavs);
     } else if (location === 'comparisons') {
       const newComps = comparisons.filter((pokemon) => pokemon !== id);
-      sessionStorage.setItem('comparisons', JSON.stringify(newComps));
+      localStorage.setItem('comparisons', JSON.stringify(newComps));
       setComparisons(newComps);
     }
   };
 
-  const updateStorage = (id, location) => {
+  const updateStorage = (id: number, location: string) => {
     if (location === 'favourites') {
       if (favourites.includes(id)) removeFromStorage(id, 'favourites');
       else addToStorage(id, 'favourites');
