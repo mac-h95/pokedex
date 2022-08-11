@@ -7,65 +7,55 @@ export default function ContextWrapper({ children }) {
   const [favourites, setFavourites] = useState([]);
   const [comparisons, setComparisons] = useState([]);
 
-  // useEffect(() => {
-  //   const favouritesData = JSON.parse(localStorage.getItem('favourites'));
-  //   const comparisonsData = JSON.parse(localStorage.getItem('comparisons'));
-  //   if (favouritesData) {
-  //     setFavourites(favouritesData);
-  //   }
-  //   if (comparisonsData) {
-  //     setComparisons(comparisonsData);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const favouritesData = JSON.parse(localStorage.getItem('favourites'));
+    const comparisonsData = JSON.parse(localStorage.getItem('comparisons'));
 
-  // const addToFavourites = async (pokemon) => {
-  //   const newFavs = [...favourites, pokemon];
-  //   localStorage.setItem('favourites', JSON.stringify(newFavs));
-  //   setFavourites(newFavs);
-  // };
+    if (favouritesData) {
+      setFavourites(favouritesData);
+    } else {
+      localStorage.setItem('favourites', JSON.stringify(favourites));
+    }
+    if (comparisonsData) {
+      setComparisons(comparisonsData);
+    } else {
+      localStorage.setItem('comparisons', JSON.stringify(comparisons));
+    }
+  }, []);
 
-  // const removeFromFavourites = (id) => {
-  //   const newFavs = favourites.filter((pokemon) => pokemon.id !== id);
-  //   localStorage.setItem('favourites', JSON.stringify(newFavs));
-  //   setFavourites(newFavs);
-  // };
+  const addToFavourites = async (id) => {
+    const newFavs = [...favourites, id];
+    localStorage.setItem('favourites', JSON.stringify(newFavs));
+    setFavourites(newFavs);
+  };
 
-  // const checkIfFavourite = (id) => {
-  //   const favs = JSON.parse(localStorage.getItem('favourites'));
+  const removeFromFavourites = (id) => {
+    const newFavs = favourites.filter((pokemon) => pokemon !== id);
+    localStorage.setItem('favourites', JSON.stringify(newFavs));
+    setFavourites(newFavs);
+  };
 
-  //   if (favs.includes(id)) return true;
-  //   else return false;
-  // };
+  const checkIfFavourite = (id) => {
+    const favs = JSON.parse(localStorage.getItem('favourites'));
 
-  // const updateFavourites = (pokemon) => {
-  //   if (favourites.includes(pokemon.id)) removeFromFavourites(pokemon.id);
-  //   else addToFavourites(pokemon);
-  // };
+    if (favs.includes(id)) return true;
+    else return false;
+  };
 
-  // const addToComparisons = async (pokemon) => {
-  //   const newComps = [...comparisons, pokemon];
-  //   localStorage.setItem('comparisons', JSON.stringify(newComps));
-  //   setComparisons(newComps);
-  // };
-
-  // const removeFromComparisons = (id) => {
-  //   const newComps = comparisons.filter((pokemon) => pokemon.id !== id);
-  //   localStorage.setItem('comparisons', JSON.stringify(newComps));
-  //   setComparisons(newComps);
-  // };
-
-  // const updateComparisons = (pokemon) => {
-  //   if (comparisons.includes(pokemon.id)) removeFromComparisons(pokemon.id);
-  //   else addToFavourites(pokemon);
-  // };
+  const updateFavourites = (id) => {
+    console.log(favourites.includes(id));
+    if (favourites.includes(id)) removeFromFavourites(id);
+    else addToFavourites(id);
+    console.log(favourites);
+  };
 
   return (
     <AppContext.Provider
       value={{
         favourites,
         comparisons,
-        // checkIfFavourite,
-        // updateFavourites,
+        checkIfFavourite,
+        updateFavourites,
         // updateComparisons,
       }}
     >

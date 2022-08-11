@@ -93,6 +93,7 @@ function Item({ id }) {
 }
 
 function Overview({ id, sprite, name, setFlipped }) {
+  const { checkIfFavourite, updateFavourites } = useData();
   return (
     <div>
       <span className="corner-ribbon">{id}</span>
@@ -101,7 +102,7 @@ function Overview({ id, sprite, name, setFlipped }) {
         <h2>{name}</h2>
       </div>
       <div className="actions">
-        <span>
+        <span onClick={() => updateFavourites(id)}>
           <Star />
         </span>
         <span>
