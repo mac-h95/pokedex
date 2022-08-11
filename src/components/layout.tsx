@@ -2,14 +2,17 @@ import * as React from 'react';
 import Pokemon from './pokemon';
 import Compare from './compare';
 import Favourites from './favourites';
+import ContextWrapper from '../library/context';
 
 export default function Layout({ view, setView }) {
   return (
     <div id="app-container">
-      <Header view={view} setView={setView} />
-      <Container view={view} />
-      <Spacer />
-      <Footer />
+      <ContextWrapper>
+        <Header view={view} setView={setView} />
+        <Container view={view} />
+        <Spacer />
+        <Footer />
+      </ContextWrapper>
     </div>
   );
 }

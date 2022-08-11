@@ -92,9 +92,7 @@ function Item({ id }) {
   }
 }
 
-function Overview({ id, sprite, name, flipped, setFlipped, setComparisons }) {
-  const [isFavourite, setIsFavourite] = useState(checkIfFavourite(id));
-
+function Overview({ id, sprite, name, setFlipped }) {
   return (
     <div>
       <span className="corner-ribbon">{id}</span>
@@ -103,10 +101,8 @@ function Overview({ id, sprite, name, flipped, setFlipped, setComparisons }) {
         <h2>{name}</h2>
       </div>
       <div className="actions">
-        <span
-          onClick={() => (addToFavourites(id), setIsFavourite(!isFavourite))}
-        >
-          <Star fill={isFavourite ? 'yellow' : 'transparent'} />
+        <span>
+          <Star />
         </span>
         <span>
           <BarChart />
