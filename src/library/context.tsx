@@ -23,30 +23,38 @@ export default function ContextWrapper({ children }) {
     }
   }, []);
 
-  const addToFavourites = async (id) => {
-    const newFavs = [...favourites, id];
-    localStorage.setItem('favourites', JSON.stringify(newFavs));
-    setFavourites(newFavs);
+  const addToStorage = async (id, location) => {
+    if (location === 'favourites') {
+      const newFavs = [...favourites, id];
+      localStorage.setItem('favourites', JSON.stringify(newFavs));
+      setFavourites(newFavs);
+    } else if (location === 'comparisons') {
+      const newComps = [...comparisons, id];
+      localStorage.setItem('comparisons', JSON.stringify(newComps));
+      setComparisons(newComps);
+    }
   };
 
-  const removeFromFavourites = (id) => {
-    const newFavs = favourites.filter((pokemon) => pokemon !== id);
-    localStorage.setItem('favourites', JSON.stringify(newFavs));
-    setFavourites(newFavs);
+  const removeFromStorage = (id, location) => {
+    if (location === 'favourites') {
+      const newFavs = favourites.filter((pokemon) => pokemon !== id);
+      localStorage.setItem('favourites', JSON.stringify(newFavs));
+      setFavourites(newFavs);
+    } else if (location === 'comparisons') {
+      const newComps = comparisons.filter((pokemon) => pokemon !== id);
+      localStorage.setItem('comparisons', JSON.stringify(newComps));
+      setComparisons(newComps);
+    }
   };
 
-  const checkIfFavourite = (id) => {
-    const favs = JSON.parse(localStorage.getItem('favourites'));
-
-    if (favs.includes(id)) return true;
-    else return false;
-  };
-
-  const updateFavourites = (id) => {
-    console.log(favourites.includes(id));
-    if (favourites.includes(id)) removeFromFavourites(id);
-    else addToFavourites(id);
-    console.log(favourites);
+  const updateStorage = (id, location) => {
+    if (location === 'favourites') {
+      if (favourites.includes(id)) removeFromStorage(id, 'favourites');
+      else addToStorage(id, 'favourites');
+    } else if (location === 'comparisons') {
+      if (comparisons.includes(id)) removeFromStorage(id, 'comparisons');
+      else addToStorage(id, 'comparisons');
+    }
   };
 
   return (
@@ -54,9 +62,7 @@ export default function ContextWrapper({ children }) {
       value={{
         favourites,
         comparisons,
-        checkIfFavourite,
-        updateFavourites,
-        // updateComparisons,
+        updateStorage,
       }}
     >
       {children}

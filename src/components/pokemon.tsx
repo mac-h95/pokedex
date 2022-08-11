@@ -65,7 +65,6 @@ function Item({ id }) {
                 height={pokemon.height}
                 weight={pokemon.weight}
                 types={pokemon.types}
-                generation={pokemon.generation}
                 setFlipped={setFlipped}
               />
             ) : (
@@ -93,7 +92,7 @@ function Item({ id }) {
 }
 
 function Overview({ id, sprite, name, setFlipped }) {
-  const { checkIfFavourite, updateFavourites } = useData();
+  const { favourites, comparisons, updateStorage } = useData();
   return (
     <div>
       <span className="corner-ribbon">{id}</span>
@@ -102,18 +101,22 @@ function Overview({ id, sprite, name, setFlipped }) {
         <h2>{name}</h2>
       </div>
       <div className="actions">
-        <span onClick={() => updateFavourites(id)}>
-          <Star />
-        </span>
-        <span>
-          <BarChart />
-        </span>
+        <Star
+          onClick={() => updateStorage(id, 'favourites')}
+          fill={favourites.includes(id) ? 'yellow' : 'transparent'}
+          color="var(--text)"
+        />
+
+        <BarChart
+          onClick={() => updateStorage(id, 'comparisons')}
+          color={comparisons.includes(id) ? 'blue' : 'var(--text)'}
+        />
       </div>
     </div>
   );
 }
 
-function Details({ name, xp, height, weight, types, generation, setFlipped }) {
+function Details({ name, xp, height, weight, types, setFlipped }) {
   return (
     <div className="details" onClick={() => setFlipped(false)}>
       <h2>{name}</h2>
