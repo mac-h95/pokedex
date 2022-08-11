@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import * as React from 'react';
 
-export const AppContext = createContext();
+export const AppContext = createContext({});
 
 export default function ContextWrapper({ children }) {
   const [favourites, setFavourites] = useState([]);
