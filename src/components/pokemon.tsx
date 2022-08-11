@@ -47,7 +47,7 @@ function List({ pokemon }) {
   return <div className="list">{pokemon}</div>;
 }
 
-function Item({ id }) {
+export function Item({ id }) {
   const { pokemon, isError, isLoading } = fetchPokemonById(id);
   const [flipped, setFlipped] = useState(false);
   if (pokemon) {

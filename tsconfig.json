@@ -4,7 +4,6 @@
     "outDir": "lib",
     "removeComments": true,
     "target": "ES6",
-    "baseUrl": "./",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "sourceMap": true,

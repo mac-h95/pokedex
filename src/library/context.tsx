@@ -29,9 +29,12 @@ export default function ContextWrapper({ children }) {
       localStorage.setItem('favourites', JSON.stringify(newFavs));
       setFavourites(newFavs);
     } else if (location === 'comparisons') {
-      const newComps = [...comparisons, id];
-      localStorage.setItem('comparisons', JSON.stringify(newComps));
-      setComparisons(newComps);
+      if (comparisons.length === 3) throw new Error('Maximum of 3 Comparisons');
+      else {
+        const newComps = [...comparisons, id];
+        localStorage.setItem('comparisons', JSON.stringify(newComps));
+        setComparisons(newComps);
+      }
     }
   };
 

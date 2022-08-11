@@ -1,10 +1,13 @@
 import * as React from 'react';
+import { useData } from '../library/context';
+import { Item } from './pokemon';
 
 export default function Favourites() {
+  const { favourites } = useData();
   return (
     <div className="container">
       <h1>Favourites</h1>
-      {/* 
+
       {favourites.length < 1 && (
         <p>
           Currently you have no favourites selected. Click on the start on a
@@ -13,11 +16,11 @@ export default function Favourites() {
       )}
       {favourites.length > 1 && (
         <div className="list">
-          {favourites.map({id} => (
-          <Item id={id}/>
-        ))} 
+          {favourites.map((id) => (
+            <Item id={id} />
+          ))}
         </div>
-      )} */}
+      )}
     </div>
   );
 }
