@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext", "dom"],
+    "lib": ["ESNext", "dom", "ES2016"],
     "outDir": "lib",
     "removeComments": true,
     "target": "ES6",
