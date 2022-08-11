@@ -1,15 +1,19 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import * as React from 'react';
+import React from 'react';
 
 export const AppContext = createContext({});
 
-export default function ContextWrapper({ children }) {
+export default function ContextWrapper({
+  children,
+}: {
+  children: JSX.Element;
+}) {
   const [favourites, setFavourites] = useState([]);
   const [comparisons, setComparisons] = useState([]);
 
   useEffect(() => {
     const favouritesData = JSON.parse(localStorage.getItem('favourites'));
-    const comparisonsData = JSON.parse(localStorage.getItem('comparisons'));
+    const comparisonsData = JSON.parse(sessionStorage.getItem('comparisons'));
 
     if (favouritesData) {
       setFavourites(favouritesData);
@@ -19,7 +23,7 @@ export default function ContextWrapper({ children }) {
     if (comparisonsData) {
       setComparisons(comparisonsData);
     } else {
-      localStorage.setItem('comparisons', JSON.stringify(comparisons));
+      sessionStorage.setItem('comparisons', JSON.stringify(comparisons));
     }
   }, []);
 
@@ -32,7 +36,7 @@ export default function ContextWrapper({ children }) {
       if (comparisons.length === 3) throw new Error('Maximum of 3 Comparisons');
       else {
         const newComps = [...comparisons, id];
-        localStorage.setItem('comparisons', JSON.stringify(newComps));
+        sessionStorage.setItem('comparisons', JSON.stringify(newComps));
         setComparisons(newComps);
       }
     }
@@ -45,7 +49,7 @@ export default function ContextWrapper({ children }) {
       setFavourites(newFavs);
     } else if (location === 'comparisons') {
       const newComps = comparisons.filter((pokemon) => pokemon !== id);
-      localStorage.setItem('comparisons', JSON.stringify(newComps));
+      sessionStorage.setItem('comparisons', JSON.stringify(newComps));
       setComparisons(newComps);
     }
   };
