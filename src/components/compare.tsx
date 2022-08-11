@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useData } from '../library/context';
 import { Item } from './pokemon';
+import { Chart } from 'react-google-charts';
 import { fetchPokemonById } from '../library/data';
 
 export default function Favourites() {
@@ -21,25 +22,48 @@ export default function Favourites() {
               <Item id={id} />
             ))}
           </div>
-          <Chart data={comparisons} />
+          <BarChart data={comparisons} />
         </div>
       )}
     </div>
   );
 }
 
-function Chart({ data }) {
-  let pokemonData = [];
+function formatData(data) {
+  let pokemonData = [['Name', 'Base Experience', 'Height', 'Weight']];
+
   data.forEach((mon) => {
-    const { id, name, base_experience, height, weight } =
+    const { name, base_experience, height, weight } =
       fetchPokemonById(mon).pokemon;
-    pokemonData.push({ id, name, base_experience, height, weight });
+    pokemonData.push([name, base_experience, height, weight]);
   });
 
-  console.log(pokemonData);
+  return pokemonData;
+}
+
+function BarChart({ data }) {
+  const pokemonData = formatData(data);
+
   return (
     <div className="container">
       <h1>Chart</h1>
+      <div>
+        <Chart
+          chartType="BarChart"
+          width="80vw"
+          height="600px"
+          data={pokemonData}
+          options={{
+            title: 'Pokemon Stats Comparison',
+            hAxis: {
+              title: 'Amount',
+            },
+            vAxis: {
+              title: 'Pokemon',
+            },
+          }}
+        />
+      </div>
     </div>
   );
 }
