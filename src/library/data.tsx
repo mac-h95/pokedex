@@ -1,6 +1,6 @@
-import useSWR from 'swr';
+import useSWR, { Fetcher } from 'swr';
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher: Fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function fetchPokemonById(id) {
   const { data, error } = useSWR(
