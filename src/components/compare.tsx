@@ -11,8 +11,8 @@ export default function Favourites() {
       <h1>Comparisons</h1>
       {comparisons.length < 1 && (
         <p>
-          Currently you have no favourites selected. Click on the start on a
-          Pokemons card to favourite it.
+          Currently you have no comparisons selected. Click on the start on a
+          Pokemons card to add it to the comparison, you can select up to 3.
         </p>
       )}
       {comparisons.length > 1 && (
@@ -54,12 +54,12 @@ function BarChart({ data }) {
           height="600px"
           data={pokemonData}
           options={{
-            title: 'Pokemon Stats Comparison',
+            title: 'Pokémon Stats Comparison',
             hAxis: {
               title: 'Amount',
             },
             vAxis: {
-              title: 'Pokemon',
+              title: 'Pokémon',
             },
           }}
         />

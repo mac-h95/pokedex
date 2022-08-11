@@ -11,7 +11,7 @@ export default function Favourites() {
       {favourites.length < 1 && (
         <p>
           Currently you have no favourites selected. Click on the start on a
-          Pokemons card to favourite it.
+          Pokémon's card to favourite it.
         </p>
       )}
       {favourites.length > 1 && (

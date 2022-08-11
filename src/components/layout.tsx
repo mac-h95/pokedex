@@ -29,7 +29,7 @@ function Header({ view, setView }) {
           onClick={() => setView('list')}
           className={view === 'list' && 'active'}
         >
-          All Pokemon
+          All Pokémon
         </a>
         <a
           onClick={() => setView('compare')}
@@ -93,7 +93,7 @@ function Footer() {
   return (
     <footer>
       <span>
-        © <a href="/">Pokemon</a>, {new Date().getFullYear()}
+        © <a href="/">Pokémon</a>, {new Date().getFullYear()}
       </span>
     </footer>
   );
