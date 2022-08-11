@@ -8,12 +8,14 @@ export default function ContextWrapper({
 }: {
   children: JSX.Element;
 }) {
-  const [favourites, setFavourites] = useState([]);
-  const [comparisons, setComparisons] = useState([]);
+  const [favourites, setFavourites] = useState<object[] | null>([]);
+  const [comparisons, setComparisons] = useState<object[] | null>([]);
 
   useEffect(() => {
-    const favouritesData = JSON.parse(localStorage.getItem('favourites'));
-    const comparisonsData = JSON.parse(sessionStorage.getItem('comparisons'));
+    const favouritesData = JSON.parse(localStorage.getItem('favourites') || '');
+    const comparisonsData = JSON.parse(
+      sessionStorage.getItem('comparisons') || ''
+    );
 
     if (favouritesData) {
       setFavourites(favouritesData);
@@ -27,9 +29,9 @@ export default function ContextWrapper({
     }
   }, []);
 
-  const addToStorage = async (id, location) => {
+  const addToStorage = async (id: number, location: string) => {
     if (location === 'favourites') {
-      const newFavs = [...favourites, id];
+      const newFavs = [...[favourites], id];
       localStorage.setItem('favourites', JSON.stringify(newFavs));
       setFavourites(newFavs);
     } else if (location === 'comparisons') {

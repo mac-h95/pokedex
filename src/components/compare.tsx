@@ -6,6 +6,7 @@ import { fetchPokemonById } from '../library/data';
 
 export default function Favourites() {
   const { comparisons } = useData();
+  console.log(comparisons);
   return (
     <div className="container">
       <h1>Comparisons</h1>
