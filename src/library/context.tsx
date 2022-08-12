@@ -3,14 +3,10 @@ import * as React from 'react';
 
 export const AppContext = createContext({});
 
-export default function ContextWrapper({
-  children,
-}: {
-  children: React.ReactNode[];
-}) {
-  const [favourites, setFavourites] = useState<number[]>([]);
-  const [comparisons, setComparisons] = useState<number[]>([]);
-  const [toast, setToast] = useState<object>({
+export default function ContextWrapper({ children }) {
+  const [favourites, setFavourites] = useState([]);
+  const [comparisons, setComparisons] = useState([]);
+  const [toast, setToast] = useState({
     visible: false,
     message: '',
     type: '',
@@ -23,10 +19,8 @@ export default function ContextWrapper({
   };
 
   useEffect(() => {
-    const favouritesData = JSON.parse(localStorage.getItem('favourites') || '');
-    const comparisonsData = JSON.parse(
-      localStorage.getItem('comparisons') || ''
-    );
+    const favouritesData = JSON.parse(localStorage.getItem('favourites'));
+    const comparisonsData = JSON.parse(localStorage.getItem('comparisons'));
 
     if (favouritesData) {
       setFavourites(favouritesData);
@@ -40,7 +34,7 @@ export default function ContextWrapper({
     }
   }, []);
 
-  const addToStorage = async (id: number, location: string) => {
+  const addToStorage = async (id, location) => {
     if (location === 'favourites') {
       const newFavs = [...favourites, id];
       localStorage.setItem('favourites', JSON.stringify(newFavs));
@@ -61,7 +55,7 @@ export default function ContextWrapper({
     }
   };
 
-  const removeFromStorage = (id: number, location: string) => {
+  const removeFromStorage = (id, location) => {
     if (location === 'favourites') {
       const newFavs = favourites.filter((pokemon) => pokemon !== id);
       localStorage.setItem('favourites', JSON.stringify(newFavs));
@@ -73,7 +67,7 @@ export default function ContextWrapper({
     }
   };
 
-  const updateStorage = (id: number, location: string) => {
+  const updateStorage = (id, location) => {
     if (location === 'favourites') {
       if (favourites.includes(id)) removeFromStorage(id, 'favourites');
       else addToStorage(id, 'favourites');
