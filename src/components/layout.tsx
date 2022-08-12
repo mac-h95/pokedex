@@ -21,7 +21,7 @@ function Header({ view, setView }) {
   return (
     <header>
       <a href="/">
-        <img src="/logo.svg" alt="Pokéball logo" />
+        <img id="logo" src="/logo.svg" alt="Pokéball Logo" />
         <h1>Pokédex</h1>
       </a>
       <nav>
@@ -66,6 +66,7 @@ function Spacer() {
 function Footer() {
   return (
     <footer>
+      <img id="logo" src="/logo.svg" alt="Pokémon Logo" />
       <span>
         © <a href="/">Pokémon</a>, {new Date().getFullYear()}
       </span>

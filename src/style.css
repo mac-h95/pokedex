@@ -12,6 +12,11 @@ body {
   font-family: system-ui;
 }
 
+#logo {
+  width: 100px;
+  height: 100px;
+}
+
 header {
   margin: 0 0 2rem;
 }
