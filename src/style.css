@@ -211,10 +211,6 @@ header nav a.active {
   background-color: #d685ad;
 }
 
-.item:hover {
-  transform: scale(1.05);
-}
-
 .skeleton {
   background: linear-gradient(
     90deg,
@@ -286,6 +282,12 @@ footer {
   align-items: center;
   justify-content: space-evenly;
   margin-top: 1rem;
+}
+
+@media(min-width: 768px) {
+  .item:hover {
+    transform: scale(1.05);
+  }
 }
 
 @keyframes loader {
