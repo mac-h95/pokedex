@@ -18,7 +18,7 @@ export default function Favourites() {
       {favourites.length > 1 && (
         <div className="list">
           {favourites.map((id) => (
-            <Item id={id} />
+            <Item id={id} key={id} />
           ))}
         </div>
       )}

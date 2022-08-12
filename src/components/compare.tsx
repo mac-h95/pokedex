@@ -20,7 +20,7 @@ export default function Favourites() {
         <div className="container">
           <div className="list">
             {comparisons.map((id) => (
-              <Item id={id} />
+              <Item id={id} key={id} />
             ))}
           </div>
           <BarChart data={comparisons} />
