@@ -9,7 +9,7 @@ A simple Pokédex built using the Pokémon API.
 - Lists all current Pokémon.
 - Filterable by generation.
 - Stats for each Pokémon are listed.
-- Comparisons allowing the user to compare two Pokémon's stats.
+- Comparisons allowing the user to compare up to three Pokémon's stats with a graph for visualisation.
 - Ability to favourite various Pokémon so you can view their stats quicker without searching through.
 
 ## Getting Started
