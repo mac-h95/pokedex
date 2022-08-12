@@ -47,11 +47,11 @@ export default function ContextWrapper({ children }) {
           type: 'error',
         });
         closeToast();
+      } else {
+        const newComps = [...comparisons, id];
+        localStorage.setItem('comparisons', JSON.stringify(newComps));
+        setComparisons(newComps);
       }
-    } else {
-      const newComps = [...comparisons, id];
-      localStorage.setItem('comparisons', JSON.stringify(newComps));
-      setComparisons(newComps);
     }
   };
 
@@ -73,7 +73,7 @@ export default function ContextWrapper({ children }) {
       else addToStorage(id, 'favourites');
     } else if (location === 'comparisons') {
       if (comparisons.includes(id)) removeFromStorage(id, 'comparisons');
-      else addToStorage(id, 'comparisons');
+      else addToStorage(id, 'comparisons')
     }
   };
 
