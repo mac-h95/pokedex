@@ -4,7 +4,7 @@ import { Item } from './pokemon';
 
 export default function Favourites() {
   const { favourites } = useData();
-  console.log(favourites);
+
   return (
     <div className="container">
       <h1>Favourites</h1>

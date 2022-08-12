@@ -16,8 +16,7 @@ export default function ContextWrapper({
     const comparisonsData = JSON.parse(
       localStorage.getItem('comparisons') || ''
     );
-    console.log(favourites);
-    console.log(comparisons);
+
     if (favouritesData) {
       setFavourites(favouritesData);
     } else {
