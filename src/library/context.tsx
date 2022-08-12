@@ -10,6 +10,17 @@ export default function ContextWrapper({
 }) {
   const [favourites, setFavourites] = useState<number[]>([]);
   const [comparisons, setComparisons] = useState<number[]>([]);
+  const [toast, setToast] = useState<object>({
+    visible: false,
+    message: '',
+    type: '',
+  });
+
+  const closeToast = () => {
+    setInterval(() => {
+      setToast({ visible: false, message: '', type: '' });
+    }, 5000);
+  };
 
   useEffect(() => {
     const favouritesData = JSON.parse(localStorage.getItem('favourites') || '');
@@ -35,12 +46,18 @@ export default function ContextWrapper({
       localStorage.setItem('favourites', JSON.stringify(newFavs));
       setFavourites(newFavs);
     } else if (location === 'comparisons') {
-      if (comparisons.length === 3) throw new Error('Maximum of 3 Comparisons');
-      else {
-        const newComps = [...comparisons, id];
-        localStorage.setItem('comparisons', JSON.stringify(newComps));
-        setComparisons(newComps);
+      if (comparisons.length === 3) {
+        setToast({
+          visible: true,
+          message: 'Error! Maximum of 3 Comparisons.',
+          type: 'error',
+        });
+        closeToast();
       }
+    } else {
+      const newComps = [...comparisons, id];
+      localStorage.setItem('comparisons', JSON.stringify(newComps));
+      setComparisons(newComps);
     }
   };
 
@@ -72,6 +89,8 @@ export default function ContextWrapper({
         favourites,
         comparisons,
         updateStorage,
+        toast,
+        setToast,
       }}
     >
       {children}

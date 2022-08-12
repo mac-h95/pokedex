@@ -3,7 +3,8 @@
   --primary: #ee1515;
   --text: #222224;
   --background: #f0f0f0;
-  --surface: var(--surface);
+  --warn: #fdd835;
+  --success: #00e676;
   --shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
@@ -247,6 +248,36 @@ header nav a.active {
 .item h2 {
   margin: 0 0 0.3rem;
   padding: 0;
+}
+
+.toast {
+  max-width: 300px;
+  display: grid;
+  place-items: center;
+  height: 50px;
+  padding: 0.6rem 1rem;
+  border-radius: var(--rad);
+  box-shadow: var(--shadow);
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.toast.error {
+  background: var(--primary);
+  color: var(--background);
+}
+
+.toast .warn {
+  background: var(--warn);
+  color: var(--text);
+}
+
+.toast .success {
+  background: var(--success);
+  color: var(--text);
 }
 
 footer {

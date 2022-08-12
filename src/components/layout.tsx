@@ -2,7 +2,7 @@ import * as React from 'react';
 import Pokemon from './pokemon';
 import Compare from './compare';
 import Favourites from './favourites';
-import ContextWrapper from '../library/context';
+import ContextWrapper, { useData } from '../library/context';
 
 export default function Layout({ view, setView }) {
   return (
@@ -11,6 +11,7 @@ export default function Layout({ view, setView }) {
         <Header view={view} setView={setView} />
         <Container view={view} />
         <Spacer />
+        <Toast />
         <Footer />
       </ContextWrapper>
     </div>
@@ -61,6 +62,24 @@ function Container({ view }) {
 
 function Spacer() {
   return <div className="spacer" />;
+}
+
+function Toast() {
+  const { toast, setToast } = useData();
+  return (
+    <div>
+      {toast.visible ? (
+        <div
+          className={`toast ${toast.type}`}
+          onClick={() => setToast({ visible: false, message: '', type: '' })}
+        >
+          {toast.message}
+        </div>
+      ) : (
+        <div></div>
+      )}
+    </div>
+  );
 }
 
 function Footer() {
