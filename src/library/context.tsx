@@ -20,7 +20,7 @@ export default function ContextWrapper({ children }) {
 
   useEffect(() => {
     const favouritesData = JSON.parse(localStorage.getItem('favourites'));
-    const comparisonsData = JSON.parse(localStorage.getItem('comparisons'));
+    const comparisonsData = JSON.parse(sessionStorage.getItem('comparisons'));
 
     if (favouritesData) {
       setFavourites(favouritesData);
@@ -30,7 +30,7 @@ export default function ContextWrapper({ children }) {
     if (comparisonsData) {
       setComparisons(comparisonsData);
     } else {
-      localStorage.setItem('comparisons', JSON.stringify(comparisons));
+      sessionStorage.setItem('comparisons', JSON.stringify(comparisons));
     }
   }, []);
 
@@ -50,7 +50,7 @@ export default function ContextWrapper({ children }) {
       }
     } else {
       const newComps = [...comparisons, id];
-      localStorage.setItem('comparisons', JSON.stringify(newComps));
+      sessionStorage.setItem('comparisons', JSON.stringify(newComps));
       setComparisons(newComps);
     }
   };
@@ -62,7 +62,7 @@ export default function ContextWrapper({ children }) {
       setFavourites(newFavs);
     } else if (location === 'comparisons') {
       const newComps = comparisons.filter((pokemon) => pokemon !== id);
-      localStorage.setItem('comparisons', JSON.stringify(newComps));
+      sessionStorage.setItem('comparisons', JSON.stringify(newComps));
       setComparisons(newComps);
     }
   };
