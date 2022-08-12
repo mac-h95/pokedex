@@ -6,7 +6,7 @@ export const AppContext = createContext({});
 export default function ContextWrapper({
   children,
 }: {
-  children: JSX.Element;
+  children: React.ReactNode[];
 }) {
   const [favourites, setFavourites] = useState<number[]>([]);
   const [comparisons, setComparisons] = useState<number[]>([]);

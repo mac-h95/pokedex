@@ -38,6 +38,9 @@ function Menu({ changeGeneration }) {
         <button onClick={() => changeGeneration(252, 386)}>III</button>
         <button onClick={() => changeGeneration(387, 493)}>IV</button>
         <button onClick={() => changeGeneration(494, 649)}>V</button>
+        <button onClick={() => changeGeneration(650, 721)}>VI</button>
+        <button onClick={() => changeGeneration(722, 809)}>VII</button>
+        <button onClick={() => changeGeneration(810, 905)}>VIII</button>
       </div>
     </div>
   );
