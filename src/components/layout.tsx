@@ -27,19 +27,19 @@ function Header({ view, setView }) {
       <nav>
         <a
           onClick={() => setView('list')}
-          className={view === 'list' && 'active'}
+          className={view === 'list' ? 'active' : ''}
         >
           All Pokémon
         </a>
         <a
           onClick={() => setView('compare')}
-          className={view === 'compare' && 'active'}
+          className={view === 'compare' ? 'active' : ''}
         >
           Compare
         </a>
         <a
           onClick={() => setView('favourites')}
-          className={view === 'favourites' && 'active'}
+          className={view === 'favourites' ? 'active' : ''}
         >
           Favourites
         </a>

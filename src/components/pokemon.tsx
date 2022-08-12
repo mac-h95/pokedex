@@ -9,7 +9,7 @@ export default function Pokemon() {
   const pokeId = () => {
     let pokemon = [];
     for (let i = id.startId; i <= id.endId; i++) {
-      pokemon.push(<Item id={i} />);
+      pokemon.push(<Item id={i} key={i} />);
     }
     return pokemon;
   };
